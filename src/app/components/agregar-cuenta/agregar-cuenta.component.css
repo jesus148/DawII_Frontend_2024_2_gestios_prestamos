@@ -1,0 +1,39 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .mat-select {
+    min-width: 200px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-option {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
+  .row {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+  }
+  
+  .mat-toolbar {
+    width: 50%; /* Tamaño del 50% del contenedor .row */
+    background-color: #4758B8; /* Color de fondo verde */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido del mat-toolbar */
+    justify-content: center; /* Centra horizontalmente el contenido del mat-toolbar */
+    margin-bottom: 20px;  
+}
+  
