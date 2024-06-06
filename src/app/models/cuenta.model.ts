@@ -1,15 +1,15 @@
-import { UtilService } from "../services/util.service";
+import { DataCatalogo } from "./dataCatalogo.model";
+import { EntidadFinanciera } from "./entidad-financiera.model";
 import { Usuario } from "./usuario.model";
 
 export class Cuenta {
 
 idCuenta?:number ;
 numero?:string; 
-idEntidadFinanciera? : UtilService;
-idTipoMoneda?:UtilService;
-estado?:number;
-idUsuarioRegistro?:Usuario;
-idUsuarioActualizacion?:Usuario;
-cuentae?:number;
+entidadFinanciera? : EntidadFinanciera;
+tipoMoneda?:DataCatalogo;
+usuarioRegistro?:Usuario;
+usuarioActualiza?:Usuario;
+
 
 }

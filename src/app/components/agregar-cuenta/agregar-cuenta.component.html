@@ -1,3 +1,51 @@
 
 <app-menu></app-menu>
-<p>agregar-cuenta works!</p>
+
+<div class="row">
+    <mat-toolbar color="primary" >    
+    <span>Registrar Cuenta</span>    
+    </mat-toolbar>  
+</div>
+
+<form class="form-container" >
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Número CCI</mat-label>
+      <input matInput [(ngModel)]="cuenta.numero"
+       placeholder="Ingrese su número CCI">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Tipo de Entidad</mat-label>
+        <mat-select placeholder="Seleccione" [(ngModel)]="selectedTipoEntidad" (change)="onTipoEntidadChange()">
+            <mat-option value="-1">[Seleccione]</mat-option>
+            <mat-option *ngFor="let x of lstTipoEntidad" [value]="x.idDataCatalogo">{{x.descripcion}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Entidad Financiera</mat-label>
+        <mat-select placeholder="Seleccione" [(ngModel)]="cuenta.entidadFinanciera!.idEntidadFinanciera" >
+            <mat-option value="-1">[Seleccione]</mat-option>
+            <mat-option value="1">aSU</mat-option>
+
+
+
+        </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Tipo de Moneda</mat-label>
+      <mat-select placeholder="Seleccione" [(ngModel)]="cuenta.tipoMoneda!.idDataCatalogo" >
+        <mat-option value="-1">[Seleccione]</mat-option>
+        <mat-option  *ngFor="let x of lstTipoMoneda" [value]="x.idDataCatalogo">
+        {{x.descripcion}}
+        </mat-option>
+        
+      </mat-select>
+    </mat-form-field>
+    
+    <div  class="row"  style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;" >
+        <button mat-raised-button type="submit" color="primary"(click)="registrar()" >REGISTRAR</button>
+    </div>
+
+  </form>
