@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppMaterialModule } from '../../app.material.module';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../menu/menu.component';
 import Swal from 'sweetalert2'
@@ -12,6 +12,7 @@ import { CuentaService } from '../../services/cuenta.service';
 import { UtilService } from '../../services/util.service';
 import { TokenService } from '../../security/token.service';
 import { Data } from '@angular/router';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -26,25 +27,38 @@ cuenta : Cuenta ={
   numero: "",
   entidadFinanciera:{
     idEntidadFinanciera :-1
-  },tipoMoneda:{
+  },
+  tipoMoneda:{
   idDataCatalogo:-1
   },
   usuarioRegistro: {
     idUsuario: -1
-},
-usuarioActualiza: {
+  },
+  usuarioActualiza: {
     idUsuario: -1
-},  
+  },  
 }
 
-lstEntidadFinanciera : EntidadFinanciera[] = []
-
+formRegistrar = this.formBuilder.group({
+  validaNumero: ['', [Validators.required, Validators.pattern('^[0-9]{20}$')],
+  this.validaNumeroCuenta.bind(this)],
+  validaTipoEntidad: ['', [Validators.min(1)]],
+  ValidaEntidadFinanciera: ['', [Validators.min(1)]],
+  ValidaTipoMoneda: ['', [Validators.min(1)]],
+});
+//lista de usuario
+objUsuario:Usuario={}
+//lista para recuperar el tipo de moneda
 lstTipoMoneda : DataCatalogo[] = []
+//lista para recuperar el tipo de entidad
 lstTipoEntidad : DataCatalogo[]=[]
-selectedEntidadFinanciera: number = -1;
+//lista para recuperar entidades
+lstEntidadFinanciera : EntidadFinanciera[] = []
+//variable para recuperar el id del tipo de entidad 
 selectedTipoEntidad: number = -1; 
 
-objUsuario:Usuario={}
+idEntidad:number = -1;
+idTipo:number =-1;
 
 constructor(private cuentaService : CuentaService,
   private utilService : UtilService,
@@ -68,48 +82,60 @@ console.log(">>> OnInit >>> " + this.lstEntidadFinanciera);
 console.log(">>> OnInit [fin]");   
 }
 
-onTipoEntidadChange() {
-  if (this.selectedTipoEntidad !== -1) { // Verifica si se ha seleccionado un tipo de entidad válido
-      this.cuentaService.listaEntidadPorTipo(this.selectedTipoEntidad)
-          .subscribe(data => {
-              this.lstEntidadFinanciera = data; // Actualiza la lista de entidades financieras
-          });
-  } else {
-      this.lstEntidadFinanciera = []; // Si no se selecciona ningún tipo de entidad, vacía la lista
-  }
-}
 
 registrar(){
   console.log(">>> registra [inicio]");
         this.cuenta.usuarioActualiza = this.objUsuario;
         this.cuenta.usuarioRegistro = this.objUsuario;
-        this.cuenta.entidadFinanciera!.idEntidadFinanciera = 1;
+        this.cuenta.entidadFinanciera!.idEntidadFinanciera = this.idEntidad
+        this.cuenta.tipoMoneda!.idDataCatalogo = this.idTipo
         console.log(">>> registra [inicio] " + this.cuenta);
         console.log(this.cuenta);
-       
+        console.log(this.cuenta.tipoMoneda!.idDataCatalogo)
         
         this.cuentaService.registrar(this.cuenta).subscribe(
           x=>{
-                Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: x.mensaje, });
-                this.cuenta ={
+                Swal.fire({ icon: 'info',title: 'Resultado del Registro',text: x.mensaje,});
+                this.cuenta = {
                   numero: "",
                   entidadFinanciera:{
                     idEntidadFinanciera :-1
-                  },tipoMoneda:{
+                  },
+                  tipoMoneda:{
                   idDataCatalogo:-1
                   },
-                  
                   usuarioRegistro: {
                     idUsuario: -1
-                },
-                usuarioActualiza: {
+                  },
+                  usuarioActualiza: {
                     idUsuario: -1
-                },  
-                    }
-            }
+                  }  
+
+                }
+
+
+                this.formRegistrar.reset();
+                this.formRegistrar.markAsPristine
+            },
         );
+        
+}
+
+listaEntidades(){
+  this.cuentaService.listaEntidades(this.selectedTipoEntidad).subscribe(
+      x => this.lstEntidadFinanciera = x
+  );
 }
 
 
+validaNumeroCuenta(control: FormControl) {
+  console.log(">>> validaNombre [inicio] " + control.value);
+  
+   return this.cuentaService.validaNumeroCuenta(control.value).pipe(
+     map((resp: any) => { 
+          return (resp.valid) ? null : {existeNumero: true} ;    
+        })
+    );
+}
 
 }
