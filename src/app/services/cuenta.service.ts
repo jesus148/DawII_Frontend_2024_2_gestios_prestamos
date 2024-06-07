@@ -18,10 +18,13 @@ export class CuentaService {
     return this.http.post(baseUrlPrueba, data)
   }
 
-  listaEntidadPorTipo(codigo: number): Observable<EntidadFinanciera[]> {
-    return this.http.get<EntidadFinanciera[]>(baseUrlPrueba+'/listaEntidadPorTipo?codigo='+codigo);
+
+listaEntidades(id:any): Observable<EntidadFinanciera[]>{
+  return this.http.get<EntidadFinanciera[]>(baseUrlPrueba+"/listaEntidadPorTipo/"+id);
 }
 
-
+validaNumeroCuenta(numero: string): Observable<any>{
+  return this.http.get<any>(baseUrlPrueba+'/validaNumeroCuenta?numero='+numero);
+}
 
 }
