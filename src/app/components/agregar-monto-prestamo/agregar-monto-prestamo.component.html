@@ -16,7 +16,7 @@
                                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaCapital.touched">
                                     <span *ngIf="formRegistrar.controls.validaCapital.hasError('required')">
                                         <li>Ingrese el capital</li>
-                                        <li>El capital debe de ser numeros</li>
+                                        <li>El capital debe de ser solo numeros</li><br>
                                     </span>
                                    
                                    
@@ -24,6 +24,7 @@
                                 <!--lo que va en el input :  formControlName="validaDescripcion"-->
                             </mat-form-field>
                         </div>
+                        <br> 
                         <div  class="row"  style="margin-top: 3%">
                             <mat-form-field class="col-md-4">
                                 <mat-label>Días</mat-label>
@@ -35,12 +36,13 @@
                                 </mat-select>
                                 <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaDias.touched">
                                     <span *ngIf="formRegistrar.controls.validaDias.hasError('min')">
-                                        <li>El días es requerido</li>
+                                        <li>El días es requerido</li><br>
                                     </span>
                                 </mat-hint> 
                                 <!--Lo que va en el select   formControlName="validaDias"-->
                             </mat-form-field>
                         </div>
+                        
                         <div  class="row"  style="margin-top: 3%">
                             <mat-form-field class="col-md-4">
                                 <mat-label>Monto a Pagar</mat-label>
@@ -48,6 +50,7 @@
                                  <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaMonto.touched">
                                     <span *ngIf="formRegistrar.controls.validaMonto.hasError('required')">
                                         <li>Ingrese el monto a pagar</li>
+                                        <li>El monto debe de ser solo numeros</li><br> 
                                     </span>
                                    
                                    
@@ -57,7 +60,7 @@
                            
                 </div>
                
-
+                   <br>
                 <div  class="row"  style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: 80%;" >
                     <button mat-raised-button type="submit" color="primary" (click)="registraMontoPrestamo()" [disabled]="formRegistrar.invalid" >Registra</button>
                 </div>
