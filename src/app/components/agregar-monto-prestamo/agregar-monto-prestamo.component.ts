@@ -45,7 +45,7 @@ export class AgregarMontoPrestamoComponent {
   }
 
   formRegistrar = this.formBuilder.group({
-      validaCapital: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]+)?$')]],
+      validaCapital: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       validaDias: ['', [Validators.min(1)]],
       validaMonto: ['', [Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')]],
     
