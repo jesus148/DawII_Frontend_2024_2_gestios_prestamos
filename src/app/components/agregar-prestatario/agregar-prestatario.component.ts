@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AppMaterialModule } from '../../app.material.module';
 import { MenuComponent } from '../../menu/menu.component';
@@ -22,8 +22,8 @@ export class AgregarPrestatarioComponent {
     validaNombres: ['', [Validators.required, Validators.pattern('[a-zA-Zá-úÁ-ÚñÑ ]{3,20}')]],
     validaApellidos: ['', [Validators.required, Validators.pattern('[a-zA-Zá-úÁ-ÚñÑ ]{3,20}')]],
     validaLogin: ['', [Validators.required, Validators.pattern('[a-zA-Zá-úÁ-ÚñÑ ]{3,20}')]],
-    validaDirec: ['', [Validators.required, Validators.pattern('[a-zA-Zá-úÁ-ÚñÑ ]{3,20}')]],
-    validaFechaNacimiento: ['', Validators.required],
+    validaDirec: ['', [Validators.required]],
+    validaFechaNacimiento: ['',[Validators.required, validateAge(18)]],
     validaDNI: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
     validaCorreo: ['', [Validators.required, Validators.email]],
 
@@ -101,4 +101,23 @@ export class AgregarPrestatarioComponent {
     );
   }
 
+}
+
+export function validateAge(minAge: number): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    if (!control.value) {
+      return null; // Si no se proporciona ninguna fecha, la validación pasa.
+    }
+
+    const today = new Date();
+    const birthDate = new Date(control.value);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--; // Restar 1 si aún no ha pasado el cumpleaños de este año.
+    }
+
+    return age >= minAge ? null : { 'minAge': true };
+  };
 }

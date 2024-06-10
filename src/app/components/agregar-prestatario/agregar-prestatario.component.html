@@ -15,7 +15,7 @@
                         El Nombre es requerido.
                     </span>
                     <span *ngIf="formsRegistra.controls.validaNombres.hasError('pattern')">
-                        El Nombre tiene de 3 a 20 caracteres.
+                        El Nombre tiene de 3 a 20 Caracteres.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -31,7 +31,7 @@
                         Los Apellidos son requeridos.
                     </span>
                     <span *ngIf="formsRegistra.controls.validaApellidos.hasError('pattern')">
-                        Los Apellidos tienen de 3 a 20 caracteres.
+                        Los Apellidos tienen de 3 a 20 Caracteres.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -40,13 +40,14 @@
         <div class="row" style="margin-top: 3%">
             <mat-form-field class="col-md-4">
                 <mat-label>DNI</mat-label>
-                <input matInput [(ngModel)]="objPrestatario.dni" formControlName="validaDNI">
+                <input maxlength="8" pattern="^\d{8}$" matInput [(ngModel)]="objPrestatario.dni"
+                    formControlName="validaDNI">
                 <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaDNI.touched">
                     <span *ngIf="formsRegistra.controls.validaDNI.hasError('required')">
-                        El DNI es requerido.
+                        El Dni es requerido.
                     </span>
                     <span *ngIf="formsRegistra.controls.validaDNI.hasError('pattern')">
-                        El DNI tiene 8 dígitos.
+                        El Dni tiene 8 dígitos.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -58,12 +59,12 @@
                 <input matInput [(ngModel)]="objPrestatario.login" formControlName="validaLogin">
                 <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaLogin.touched">
                     <span *ngIf="formsRegistra.controls.validaLogin.hasError('required')">
-                        El login es requerido.
+                        El Login es requerido.
                     </span>
 
                     <span
                         *ngIf="formsRegistra.get('validaNombres')?.hasError('email') && formsRegistra.get('validaNombres')?.touched">
-                        Introduce un login válido.
+                        Introduce un Login válido.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -75,29 +76,32 @@
                 <input matInput [(ngModel)]="objPrestatario.correo" formControlName="validaCorreo">
                 <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaCorreo.touched">
                     <span *ngIf="formsRegistra.controls.validaCorreo.hasError('required')">
-                        El Correo es requerido.
+                        El Correo Electrónico es requerido.
                     </span>
 
                     <span
                         *ngIf="formsRegistra.get('validaCorreo')?.hasError('email') && formsRegistra.get('validaCorreo')?.touched">
-                        Introduce un correo electrónico válido.
+                        Introduce un Correo Electrónico válido.
                     </span>
                 </mat-hint>
             </mat-form-field>
 
         </div>
-        
+
         <div class="row" style="margin-top: 3%">
 
             <mat-form-field class="col-md-4">
                 <mat-label>Fecha de Nacimiento</mat-label>
                 <input matInput [(ngModel)]="objPrestatario.fechaNacimiento" [matDatepicker]="picker"
-                    formControlName="validaFechaNacimiento">
+                       formControlName="validaFechaNacimiento">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaFechaNacimiento.touched">
                     <span *ngIf="formsRegistra.controls.validaFechaNacimiento.hasError('required')">
                         La Fecha de Nacimiento es requerida.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaFechaNacimiento.hasError('minAge')">
+                        Debes ser mayor de 18 años.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -111,7 +115,7 @@
                         La Dirección es requerida.
                     </span>
                     <span *ngIf="formsRegistra.controls.validaDirec.hasError('pattern')">
-                        La Dirección tiene de 3 a 50 caracteres.
+                        La Dirección tiene de 3 a 50 Caracteres.
                     </span>
                 </mat-hint>
             </mat-form-field>
