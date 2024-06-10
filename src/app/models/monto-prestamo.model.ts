@@ -5,11 +5,11 @@ import { Usuario } from "./usuario.model";
 export class MontoPrestamo {
 
 
-  idMontoPrestamo?:Number;
+  idMontoPrestamo?:number;
 
   capital?:number;
   dias?: DataCatalogo;
-  monto?:DecimalPipe;
+  monto?:number;
   estado?: number;
   fechaRegistro?:Date;
   fechaActualizacion?:Date;
