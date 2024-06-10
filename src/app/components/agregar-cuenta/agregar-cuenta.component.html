@@ -21,9 +21,10 @@
             El numero debe tener 20 digitos
         </span>
 
-        <span *ngIf="formRegistrar.controls.validaNumero.hasError('existeNumero')">
+        <span *ngIf="formRegistrar.controls.validaNumero.hasError('existenumero')">
             El numero de cuenta ya esta registrado
         </span>
+
     </mat-hint>
 
     </mat-form-field>
@@ -42,7 +43,7 @@
     </mat-form-field>
     
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>en</mat-label>
+        <mat-label>Entidad Financiera</mat-label>
         <mat-select  [(ngModel)]="cuenta.entidadFinanciera!.idEntidadFinanciera"  formControlName="validaEntidadFinanciera">
             <mat-option value="-1">Seleccione...</mat-option>
             <mat-option *ngFor="let x of lstEntidadFinanciera" [value]="x.idEntidadFinanciera">{{x.nombre}}</mat-option>
@@ -70,7 +71,7 @@
     </mat-form-field>
     
     <div  class="row"  style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;" >
-        <button mat-raised-button type="submit" color="primary"[disabled]="formRegistrar.invalid"  (click)="registrar()" >REGISTRAR</button>
+        <button mat-raised-button type="submit" color="primary"[disabled]="formRegistrar.invalid"   >REGISTRAR</button>
     </div>
 
   </form>
