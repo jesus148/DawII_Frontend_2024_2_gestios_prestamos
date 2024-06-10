@@ -48,9 +48,9 @@ export class AgregarEjemploComponent {
       },
       usuarioActualiza: {
           idUsuario: -1
-      },  
+      },
   }
-  
+
     formRegistrar = this.formBuilder.group({
       validaDescripcion: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validaDescripcion.bind(this)],
       validaLongitud: ['', [Validators.required,Validators.min(1)]],
@@ -63,11 +63,11 @@ export class AgregarEjemploComponent {
   });
 
 
-  //listas de ubigeo 
+  //listas de ubigeo
   departamentos : string[] = [];
   provincias : string[] = [];
   distritos: Ubigeo[] = [];
-  
+
   //lista de paises
   lstPais: Pais[] = [];
 
@@ -76,7 +76,7 @@ export class AgregarEjemploComponent {
 
   //lista de usuarios prestarios
   lstPrestatarios: Usuario[] = [];
-  
+
   //usuario en sesion
   objUsuario: Usuario = {};
 
@@ -86,6 +86,8 @@ export class AgregarEjemploComponent {
             private formBuilder: FormBuilder) {
         console.log(">>> constructor  >>> ");
    }
+
+  //  AL INCICIO CARGA ESTO
     ngOnInit() {
               console.log(">>> OnInit [inicio]");
         this.utilService.listaPais().subscribe(
@@ -97,25 +99,33 @@ export class AgregarEjemploComponent {
         this.utilService.listaDiasPrestamo().subscribe(
                   x => this.lstDias = x
         );
+        // listando data del usuario inferiror a este
         this.utilService.listaPrestamistariosDeUnPrestamista(this.tokenService.getUserId()).subscribe(
                   x => this.lstPrestatarios = x
       );
+      // usuario actual
         this.objUsuario.idUsuario = this.tokenService.getUserId();
         console.log(">>> OnInit >>> 1 >> " + this.lstPais.length);
+        console.log(" id del usuario" + this.objUsuario.idUsuario);
         console.log(">>> OnInit >>> " + this.departamentos);
         console.log(">>> OnInit >>> " + this.lstDias);
         console.log(">>> OnInit >>> " + this.lstPrestatarios);
-        console.log(">>> OnInit [fin]");      
+        console.log(">>> OnInit [fin]");
     }
 
+
+    // REGISTRAR
   registra() {
+
+    // LLENANDO LA DATA Q FALTA AL OBJETO EJEMPLO PA REGISTRAR
         console.log(">>> registra [inicio]");
         this.ejemplo.usuarioActualiza = this.objUsuario;
         this.ejemplo.usuarioRegistro = this.objUsuario;
-        console.log(">>> registra [inicio] " + this.ejemplo);
         console.log(this.ejemplo);
 
 
+
+        // ENVIANDO LA DATA CARGADA
         this.ejemploService.registrar(this.ejemplo).subscribe(
           x=>{
                 Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: x.mensaje, });
@@ -142,23 +152,27 @@ export class AgregarEjemploComponent {
                         },
                         usuarioActualiza: {
                             idUsuario: -1
-                        },  
+                        },
                     }
             }
         );
    }
 
+
+  //  VALIDAR
   validaDescripcion(control: FormControl) {
     console.log(">>> validaDescripcion [inicio] " + control.value);
-    
+
      return this.ejemploService.validaDescripcionRegistra(control.value).pipe(
-       map((resp: any) => { 
+       map((resp: any) => {
             console.log(">>> validaDescripcion [resp] " + resp.valid);
-            return (resp.valid) ? null : {existeDescripcion: true} ;    
+            return (resp.valid) ? null : {existeDescripcion: true} ;
           })
       );
   }
-  
+
+
+  // LISTAR COMBO CUANDO SELECCIONES OTRO COMBO OSEA RELACIONA SEGUN Q DISTRITO HAYAS SELECCIONADO
    listaProvincia(){
     console.log("listaProvincia>>> " + this.ejemplo.ubigeo?.departamento);
     this.utilService.listaProvincias(this.ejemplo.ubigeo?.departamento).subscribe(

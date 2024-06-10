@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 import { DataCatalogo } from "./dataCatalogo.model";
 import { Usuario } from "./usuario.model";
 export class MontoPrestamo {
@@ -11,5 +18,6 @@ export class MontoPrestamo {
      usuarioActualizacion ?: Usuario;
     
     
+
 
 }

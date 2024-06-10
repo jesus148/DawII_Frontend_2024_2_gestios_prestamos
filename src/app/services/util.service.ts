@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppSettings } from '../app.settings';
 import { Pais } from '../models/pais.model';
 import { DataCatalogo } from '../models/dataCatalogo.model';
+import { MontoPrestamo } from '../models/monto-prestamo.model';
 import { Ubigeo } from '../models/ubigeo.model';
 import { Usuario } from '../models/usuario.model';
 
@@ -41,6 +42,29 @@ export class UtilService {
   }
 
   listaDiasPrestamo():Observable<DataCatalogo[]>{
+    return this.http.get<DataCatalogo[]>(baseUrlUtil+"/listaDiasPrestamo");
+  }
+
+
+  // capital monto
+  listaCapitalMonto():Observable<MontoPrestamo[]>{
+    return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalMonto");
+  }
+
+
+
+
+  //lista 1 monto segun capital
+  listaMontoSegunCapital(paramMonto:any): Observable<string[]>{
+    return this.http.get<string[]>(baseUrlUtil+"/listaMontoPrestamo/"+paramMonto);
+  }
+
+
+
+
+
+
+  listaCapitalPrestam():Observable<DataCatalogo[]>{
     return this.http.get<DataCatalogo[]>(baseUrlUtil+"/listaDiasPrestamo");
   }
 
