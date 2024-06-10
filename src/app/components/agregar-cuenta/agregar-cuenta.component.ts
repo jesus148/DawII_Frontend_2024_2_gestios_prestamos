@@ -57,8 +57,7 @@ lstEntidadFinanciera : EntidadFinanciera[] = []
 //variable para recuperar el id del tipo de entidad 
 selectedTipoEntidad: number = -1; 
 
-idEntidad:number = -1;
-idTipo:number =-1;
+
 
 constructor(private cuentaService : CuentaService,
   private utilService : UtilService,
@@ -87,8 +86,7 @@ registrar(){
   console.log(">>> registra [inicio]");
         this.cuenta.usuarioActualiza = this.objUsuario;
         this.cuenta.usuarioRegistro = this.objUsuario;
-        this.cuenta.entidadFinanciera!.idEntidadFinanciera = this.idEntidad
-        this.cuenta.tipoMoneda!.idDataCatalogo = this.idTipo
+      
         console.log(">>> registra [inicio] " + this.cuenta);
         console.log(this.cuenta);
         console.log(this.cuenta.tipoMoneda!.idDataCatalogo)
@@ -133,9 +131,10 @@ validaNumeroCuenta(control: FormControl) {
   
    return this.cuentaService.validaNumeroCuenta(control.value).pipe(
      map((resp: any) => { 
-          return (resp.valid) ? null : {existeNumero: true} ;    
+          return (resp.valid) ? null : {existenumero: false} ;    
         })
     );
 }
 
 }
+

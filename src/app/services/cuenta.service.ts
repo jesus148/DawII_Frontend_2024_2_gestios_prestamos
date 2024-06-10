@@ -27,4 +27,6 @@ validaNumeroCuenta(numero: string): Observable<any>{
   return this.http.get<any>(baseUrlPrueba+'/validaNumeroCuenta?numero='+numero);
 }
 
+
+
 }
