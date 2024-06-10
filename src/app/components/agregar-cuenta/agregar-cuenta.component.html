@@ -42,13 +42,13 @@
     </mat-form-field>
     
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Entidad Financiera</mat-label>
-        <mat-select placeholder="Seleccione" [(ngModel)]="idEntidad"  >
+        <mat-label>en</mat-label>
+        <mat-select  [(ngModel)]="cuenta.entidadFinanciera!.idEntidadFinanciera"  formControlName="validaEntidadFinanciera">
             <mat-option value="-1">Seleccione...</mat-option>
             <mat-option *ngFor="let x of lstEntidadFinanciera" [value]="x.idEntidadFinanciera">{{x.nombre}}</mat-option>
         </mat-select>
-        <mat-hint style="color: red;" *ngIf="formRegistrar.controls.ValidaEntidadFinanciera">
-            <span *ngIf="formRegistrar.controls.ValidaEntidadFinanciera.hasError('min')">
+        <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaEntidadFinanciera">
+            <span *ngIf="formRegistrar.controls.validaEntidadFinanciera.hasError('min')">
                 Seleccione una Entidad Financiera
             </span>
         </mat-hint>
@@ -56,14 +56,14 @@
   
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>Tipo de Moneda</mat-label>
-      <mat-select placeholder="Seleccione" [(ngModel)]="idTipo" >
+      <mat-select placeholder="Seleccione" [(ngModel)]="cuenta.tipoMoneda!.idDataCatalogo" formControlName="validaTipoMoneda">
         <mat-option value="-1">Seleccione...</mat-option>
         <mat-option  *ngFor="let x of lstTipoMoneda" [value]="x.idDataCatalogo">
         {{x.descripcion}}
         </mat-option>
       </mat-select>
       <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaTipoEntidad.touched">
-        <span *ngIf="formRegistrar.controls.ValidaTipoMoneda.hasError('min')">
+        <span *ngIf="formRegistrar.controls.validaTipoMoneda.hasError('min')">
             Seleccione un Tipo de Moneda
         </span>
       </mat-hint>
