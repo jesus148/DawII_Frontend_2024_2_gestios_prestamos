@@ -43,8 +43,8 @@ formRegistrar = this.formBuilder.group({
   validaNumero: ['', [Validators.required, Validators.pattern('^[0-9]{20}$')],
   this.validaNumeroCuenta.bind(this)],
   validaTipoEntidad: ['', [Validators.min(1)]],
-  ValidaEntidadFinanciera: ['', [Validators.min(1)]],
-  ValidaTipoMoneda: ['', [Validators.min(1)]],
+  validaEntidadFinanciera: ['', [Validators.min(1)]],
+  validaTipoMoneda: ['', [Validators.min(1)]],
 });
 //lista de usuario
 objUsuario:Usuario={}
