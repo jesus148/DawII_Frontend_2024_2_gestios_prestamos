@@ -46,18 +46,35 @@ export class UtilService {
   }
 
 
-  // capital monto
-  listaCapitalMonto():Observable<MontoPrestamo[]>{
-    return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalMonto");
+  // // capital monto
+  // listaCapitalMonto():Observable<MontoPrestamo[]>{
+  //   return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalMonto");
+  // }
+
+
+
+
+  // //lista 1 monto segun capital
+  // listaMontoSegunCapital(paramMonto:any): Observable<string[]>{
+  //   return this.http.get<string[]>(baseUrlUtil+"/listaMontoPrestamo/"+paramMonto);
+  // }
+
+
+
+
+
+  listaCapitalesPorDias(paramDias:any): Observable<MontoPrestamo[]>{
+    return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalesPorDias/"+paramDias);
+  }
+
+  listaMontosPagarPorCapital(paramCapital: any): Observable<MontoPrestamo[]> {
+    return this.http.get<MontoPrestamo[]>( `${baseUrlUtil}/listaMontosPagarPorCapital/${paramCapital}`);
   }
 
 
 
 
-  //lista 1 monto segun capital
-  listaMontoSegunCapital(paramMonto:any): Observable<string[]>{
-    return this.http.get<string[]>(baseUrlUtil+"/listaMontoPrestamo/"+paramMonto);
-  }
+
 
 
 

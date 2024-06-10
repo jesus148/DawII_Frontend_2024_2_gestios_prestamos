@@ -1,126 +1,143 @@
+
+
+
 <app-menu></app-menu>
-
-<!-- no entiendo el examen -->
-
-
-
 <div class="container">
+
   <form [formGroup]="formRegistrar">
-  <div class="row">
-          <mat-toolbar color="primary" >
-          <span>Registra Solicitud de Préstamo </span>
-          </mat-toolbar>
-  </div>
-  <div class="row" style="margin-top: 3%">
+                <div class="row">
+                        <mat-toolbar color="primary" >
+                        <span>Registro Solicitud Préstamo</span>
+                        </mat-toolbar>
+                </div>
+                <div  class="row"  style="margin-top: 3%">
+                            <mat-form-field class="col-md-4">
+                                <mat-label>días</mat-label>
+                                <!-- [(ngModel)]="objPrestamo.dias!.idDataCatalogo" donde se guarda la data -->
+                                <!-- (selectionChange)="listaCapitalesPorDias()" :llama a la funcion cuando modficas esto  -->
+                                <mat-select [(ngModel)]="objPrestamo.dias!.idDataCatalogo" (selectionChange)="listaCapitalesPorDias()" formControlName="validaPais" >
+                                    <mat-option value="-1"> [Seleccione] </mat-option>
+                                    <mat-option *ngFor="let x of lstDias" [value]="x.idDataCatalogo">
+                                      <!-- recordar muestra solo numeros del data catalago -->
+                                        {{x.descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaPais.touched">
+                                  <span *ngIf="formRegistrar.controls.validaPais.hasError('min')">
+                                      los días son requeridos
+                                  </span>
+                              </mat-hint>
 
 
-    <mat-form-field class="col-md-4">
-      <mat-label>Días</mat-label>
-
-      <mat-select [(ngModel)]="objPrestamo.dias!.idDataCatalogo" formControlName="validaPais" >
-        <mat-option value="-1"> [Seleccione] </mat-option>
 
 
-        <mat-option *ngFor="let x of lstDias"  [value]="x.idDataCatalogo"  >
-
-          {{x.descripcion}}
-        </mat-option>
-    </mat-select>
-    <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaPais.touched">
-      <span *ngIf="formRegistrar.controls.validaPais.hasError('min')">
-         los dias son requeridos
-      </span>
-  </mat-hint>
-
-  </mat-form-field>
-  </div>
-  <div class="row" style="margin-top: 3%">
+                            </mat-form-field>
 
 
-    <mat-form-field class="col-md-4">
-      <mat-label>Capital</mat-label>
 
-      <mat-select  [(ngModel)]="objPrestamo.capital" (selectionChange)="PonerMonto()" formControlName="validaCapital" >
-        <mat-option value="-1"> [Seleccione] </mat-option>
+            </div>
 
 
-        <mat-option *ngFor="let x of MontoPres"  [value]="x.idMontoPrestamo"  >
-
-          {{x.capital}}
-        </mat-option>
-    </mat-select>
-    <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaCapital.touched">
-      <span *ngIf="formRegistrar.controls.validaCapital.hasError('min')">
-         los dias son requeridos
-      </span>
-  </mat-hint>
-
-  </mat-form-field>
-  </div>
-  <div  class="row"  style="margin-top: 3%">
-
-<!--
-              <mat-form-field class="col-md-6">
-                  <mat-label>Monto a Pagar</mat-label>
-                  <input  matInput  >
-                </mat-form-field> -->
-
-                <mat-form-field class="col-md-4">
-                  <mat-label>monto</mat-label>
-
-                  <mat-select  [(ngModel)]="objPrestamo.montoPagar" >
-                    <mat-option value="-1"> [Seleccione] </mat-option>
+            <div class="row"  style="margin-top: 3%">
 
 
-                    <mat-option *ngFor="let x of capitaMonto"  [value]="x"  >
-
-                      {{x}}
+              <mat-form-field class="col-md-4">
+                <mat-label>Capital</mat-label>
+                <mat-select [(ngModel)]="objPrestamo.capital!" (selectionChange)="obtenerMontosPagar()" formControlName="validaCapital" >
+                    <mat-option value="-1">[Seleccione]</mat-option>
+                    <mat-option *ngFor="let x of capital" [value]="x.capital">
+                        {{ x.capital }}
                     </mat-option>
                 </mat-select>
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaCapital.touched">
+                  <span *ngIf="formRegistrar.controls.validaCapital.hasError('min')">
+                      los capitales son requeridos
+                  </span>
+              </mat-hint>
 
+            </mat-form-field>
+
+            </div>
+
+
+            <div class="row"  style="margin-top: 3%" >
+              <mat-form-field class="col-md-3">
+                <mat-label>Monto a Pagar</mat-label>
+                <input matInput [(ngModel)]="objPrestamo.montoPagar" [disabled]="true" formControlName="validaDescripcion">
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaDescripcion.touched">
+                  <span *ngIf="formRegistrar.controls.validaDescripcion.hasError('required')">
+                      La descripción es requerida
+                  </span>
+
+              </mat-hint>
+            </mat-form-field>
+            </div>
+
+            <div class="row"  style="margin-top: 3%">
+
+
+
+              <mat-form-field class="col-md-4">
+                <mat-label>Fecha inicio</mat-label>
+                <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="objPrestamo.fechaInicioPrestamo" (dateChange)="calcularFechaFin()"  formControlName="validaDescripcion1">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaDescripcion1.touched">
+                  <span *ngIf="formRegistrar.controls.validaDescripcion1.hasError('required')">
+                      fecha de incio es requerida
+                  </span>
+
+              </mat-hint>
               </mat-form-field>
 
 
 
+                <mat-form-field class="col-md-4">
+                  <mat-label>Fecha fin</mat-label>
+                  <input matInput [(ngModel)]="objPrestamo.fechaFinPrestamo" [disabled]="true" formControlName="validaDescripcion"  formControlName="validaDescripcion2">
+                  <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaDescripcion2.touched">
+                    <span *ngIf="formRegistrar.controls.validaDescripcion2.hasError('required')">
+                      fecha fin
+                    </span>
 
-  </div>
-  <div  class="row"  style="margin-top: 3%">
+                </mat-hint>
 
-
-
-    <mat-form-field  class="col-md-4">
-      <mat-label>Elige la fecha de inicio</mat-label>
-      <input matInput [matDatepicker]="picker" name='fechaInicioPrestamo' [(ngModel)] ="objPrestamo.fechaInicioPrestamo" >
-
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-  </div>
-  <div class="row" style="margin-top: 3%">
-
-    <mat-form-field class="col-md-6">
-      <mat-label>Prestatario</mat-label>
-      <mat-select [(ngModel)]="objPrestamo.usuarioPrestatario!.idUsuario"  formControlName="validaUsuario" >
-          <mat-option value="-1"> [Seleccione] </mat-option>
-          <mat-option *ngFor="let x of lstPrestatarios" [value]="x.idUsuario">
-              {{x.nombreCompleto}}
-          </mat-option>
-      </mat-select>
-      <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaUsuario.touched">
-        <span *ngIf="formRegistrar.controls.validaUsuario.hasError('min')">
-           los dias son requeridos
-        </span>
-    </mat-hint>
-
-  </mat-form-field>
+                </mat-form-field>
 
 
-  </div>
 
-  <div  class="row" >
+            </div>
+            <div class="row"  style="margin-top: 3%">
 
-      <button mat-raised-button type="submit" color="primary" [disabled]="formRegistrar.invalid" (click)="registrar()" >Registrar</button>
-  </div>
-</form>
+
+
+
+              <mat-form-field class="col-md-4">
+                <mat-label>Prestatario</mat-label>
+                <mat-select [(ngModel)]="objPrestamo.usuarioPrestatario!.idUsuario" formControlName="validaUsuario"  >
+                    <mat-option value="-1"> [Seleccione] </mat-option>
+                    <mat-option *ngFor="let x of lstPrestatarios" [value]="x.idUsuario">
+                        {{x.nombres}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaUsuario.touched">
+                  <span *ngIf="formRegistrar.controls.validaUsuario.hasError('min')">
+                      El prestatario es requerido
+                  </span>
+              </mat-hint>
+
+            </mat-form-field>
+
+
+            </div>
+
+
+
+
+
+
+                <div  class="row"  style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content; " >
+                    <button style="width: 200px; height: 40px;" [disabled]="formRegistrar.invalid" mat-raised-button type="submit" mat-flat-button color="primary"  (click)="registra()">Registra</button>
+                </div>
+              </form>
 </div>
