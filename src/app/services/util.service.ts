@@ -45,13 +45,20 @@ export class UtilService {
     return this.http.get<DataCatalogo[]>(baseUrlUtil+"/listaDiasPrestamo");
   }
 
-  listaCapitalesPorDias(paramDias:any): Observable<MontoPrestamo[]>{
-    return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalesPorDias/"+paramDias);
+
+  // capital monto
+  listaCapitalMonto():Observable<MontoPrestamo[]>{
+    return this.http.get<MontoPrestamo[]>(baseUrlUtil+"/listaCapitalMonto");
   }
 
-  listaMontosPagarPorCapital(paramCapital: any): Observable<MontoPrestamo[]> {
-    return this.http.get<MontoPrestamo[]>(${baseUrlUtil}/listaMontosPagarPorCapital/${paramCapital});
-  }
+
+
+
+  //lista 1 monto segun capital
+  listaMontoSegunCapital(paramMonto:any): Observable<string[]>{
+    return this.http.get<string[]>(baseUrlUtil+"/listaMontoPrestamo/"+paramMonto);
+  }
+
 
 
 
