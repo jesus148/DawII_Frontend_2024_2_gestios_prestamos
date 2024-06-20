@@ -1,0 +1,111 @@
+
+/* styles.css */
+
+
+.larger-container {
+    width: 100%;
+    max-width: 800px; /* Ancho máximo del contenedor más grande */
+    background-color: #FFFFFF; /* Fondo blanco para el formulario */
+    padding: 30px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.form-container {
+    width: 100%; /* Ancho completo del formulario dentro del contenedor grande */
+}
+
+.form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mat-select,
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-option {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.row {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.mat-toolbar {
+    width: 100%;
+    background-color: #512DA8; /* Color de fondo morado oscuro para el toolbar */
+    color: white; /* Texto en blanco para contraste */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido del mat-toolbar */
+    justify-content: center; /* Centra horizontalmente el contenido del mat-toolbar */
+    padding: 15px;
+    border-top-left-radius: 10px; /* Bordes redondeados en la esquina superior izquierda */
+    border-top-right-radius: 10px; /* Bordes redondeados en la esquina superior derecha */
+}
+
+button[type="submit"] {
+    background-color: #512DA8; /* Color de fondo del botón */
+    color: white; /* Texto en blanco para contraste */
+    width: 100%; /* Ancho completo del botón */
+    height: 40px; /* Altura del botón */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+button[type="submit"]:hover {
+    background-color: #311B92; /* Color de fondo más oscuro al pasar el mouse */
+}
+
+.mat-hint {
+    font-size: 12px; /* Tamaño de la fuente para las advertencias */
+    margin-top: 4px;
+}
+
+input.mat-input-element {
+    height: 40px; /* Altura del campo de entrada */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #CCCCCC; /* Borde delgado */
+    padding: 0 12px; /* Espaciado dentro del campo de entrada */
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+.mat-select-trigger {
+    height: 40px; /* Altura del select */
+    line-height: 40px; /* Alineación vertical del texto dentro del select */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #CCCCCC; /* Borde delgado */
+    padding: 0 12px; /* Espaciado dentro del select */
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Estilos específicos para el modal */
+
+.outer-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+
+input   {
+    width:100%;
+    height: 40px;
+    background-color :white ; 
+    border-color: black;
+    border-radius: 8px;
+}
+
+mat-select{
+    width:100%;
+    height: 40px;
+    background-color :white ; 
+    border-color: black;
+    border-radius: 8px;
+}
