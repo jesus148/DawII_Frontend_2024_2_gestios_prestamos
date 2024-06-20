@@ -8,7 +8,7 @@ idCuenta?:number ;
 numero?:string; 
 entidadFinanciera? : EntidadFinanciera;
 tipoMoneda?:DataCatalogo;
-estado?:string;
+estado?:number;
 usuarioRegistro?:Usuario;
 usuarioActualiza?:Usuario;
 
