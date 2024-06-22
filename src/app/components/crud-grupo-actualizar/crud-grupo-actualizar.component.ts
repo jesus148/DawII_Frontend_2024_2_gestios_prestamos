@@ -22,7 +22,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class CrudGrupoActualizarComponent {
   
- 
+
 
   grupo: Grupo = {
     descripcion: "",
@@ -45,7 +45,7 @@ export class CrudGrupoActualizarComponent {
   }
 
   formRegistrar = this.formBuilder.group({
-    validaDescripcion: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')], this.validaDescripcion.bind(this)],
+    validaDescripcion: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')],this.validaDescripcion.bind(this)],
     validaDepartamento: ['', [Validators.min(1)]],
     validaProvincia: ['', [Validators.min(1)]],
     validaDistrito: ['', [Validators.min(1)]],
@@ -84,12 +84,23 @@ console.log(">>> constructor  >>> ");
         console.log(">>> OnInit >>> " + this.lstJefePrestamista);
         console.log(">>> OnInit [fin]"); 
 
+        this.utilService.listaProvincias(this.grupo.ubigeo?.departamento).subscribe(
+          x => this.provincias = x
+      );
+      this.utilService.listaDistritos(this.grupo.ubigeo?.departamento,this.grupo.ubigeo?.provincia).subscribe(
+        x => this.distritos = x
+    );
   }
 
 
   actualizaGrupo(){
-      console.log(">>> registraGrupo [inicio] ");
+      console.log(">>> Actualiza [inicio] ");
+      console.log(">>> Seteo de Usuario Actualiza [inicio] ");
+
       this.grupo.usuarioActualiza = this.objUsuario;
+      console.log(">>> Seteo de Usuario Actualiza [inicio] ");
+      this.grupo.usuarioRegistro = this.objUsuario;
+
       console.log(">>> registraGrupo [inicio] " + this.grupo);
       console.log(this.grupo);
 
@@ -121,8 +132,6 @@ console.log(">>> constructor  >>> ");
 
 }
 
-
-
 validaDescripcion(control: FormControl) {
   console.log(">>> validaDescripcion [inicio] " + control.value);
   return this.grupoService.validaDescripcionActualiza(control.value, this.grupo.idGrupo || 0).pipe(
@@ -132,6 +141,8 @@ validaDescripcion(control: FormControl) {
         })
     );
 }
+
+
 
 listaProvincia(){
   console.log("listaProvincia>>> " + this.grupo.ubigeo?.departamento);
