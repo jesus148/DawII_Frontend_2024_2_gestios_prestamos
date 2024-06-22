@@ -90,7 +90,7 @@ registrarGrupo(){
       console.log(">>> registraGrupo [inicio] " + this.grupo);
       console.log(this.grupo);
 
-      this.grupoService.registrarGrupo(this.grupo).subscribe(
+      this.grupoService.registrarCrud(this.grupo).subscribe(
         x=>{
           Swal.fire({ icon: 'info', title: 'Informacion de Registro', text: x.mensaje, });
           this.grupo = {  

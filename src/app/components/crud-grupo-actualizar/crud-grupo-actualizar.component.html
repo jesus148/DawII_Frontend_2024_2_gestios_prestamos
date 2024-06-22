@@ -28,7 +28,8 @@
             
             <mat-form-field class="col-md-4">
                 <mat-label>Departamento</mat-label>
-                <mat-select  [(ngModel)]="grupo.ubigeo!.departamento" (selectionChange)="listaProvincia()" formControlName="validaDepartamento">
+                <mat-select  [(ngModel)]="grupo.ubigeo!.departamento" (selectionChange)="listaProvincia()"
+                 formControlName="validaDepartamento">
                     <mat-option value="-1"> [Seleccione] </mat-option>
                     <mat-option *ngFor="let x of departamentos" [value]="x">
                         {{x}}
@@ -43,7 +44,8 @@
     
             <mat-form-field class="col-md-4">
                 <mat-label>Provincia</mat-label>
-                <mat-select [(ngModel)]="grupo.ubigeo!.provincia" (selectionChange)="listaDistrito()" formControlName="validaProvincia">
+                <mat-select [(ngModel)]="grupo.ubigeo!.provincia" (selectionChange)="listaDistrito()" 
+                formControlName="validaProvincia">
                     <mat-option value="-1"> [Seleccione] </mat-option>
                     <mat-option *ngFor="let x of provincias" [value]="x">
                         {{x}}
