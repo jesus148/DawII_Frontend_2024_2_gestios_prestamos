@@ -15,6 +15,7 @@ export class CuentaService {
 
   constructor(private http:HttpClient) { }
 
+  //PC1 
   registrar(data:Cuenta):Observable<any>{
     return this.http.post(baseUrlPrueba, data)
   }
@@ -29,12 +30,14 @@ validaNumeroCuenta(numero: string): Observable<any>{
   return this.http.get<any>(baseUrlPrueba+'/validaNumeroCuenta?numero='+numero);
 }
 
+
 validaNumeroCuentaActualiza(numero: string, id:number): Observable<any>{
   console.log('>>> Service >> validaDescripcionActualiza [inicio]' + numero);
   return this.http.get<any>(baseUrlCrudPrueba+'/validaNumeroCuentaActualiza?numero='+numero + "&idCuenta="+id);
 }
 
 
+//PC2 CRUD
 
 registrarCrud(data:Cuenta):Observable<any>{
   return this.http.post(baseUrlCrudPrueba+"/registraCuenta", data);

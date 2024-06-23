@@ -38,6 +38,7 @@ export class CrudCuentaActualizarComponent {
     },  
   }
 
+
   formRegistrar = this.formBuilder.group({
     validaNumero: ['', [Validators.required, Validators.pattern('^[0-9]{20}$')], this.validaNumeroCuentaActualiza.bind(this)],
     validaTipoEntidad: ['', [Validators.min(1)]],
@@ -152,6 +153,7 @@ export class CrudCuentaActualizarComponent {
           return (resp.valid) ? null : {existenNumero: true} ;    
         })
     );
+
 }
   salir() {
     

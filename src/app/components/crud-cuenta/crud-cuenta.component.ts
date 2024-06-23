@@ -14,6 +14,9 @@ import { Cuenta } from '../../models/cuenta.model';
 import { CrudEjemploActualizarComponent } from '../crud-ejemplo-actualizar/crud-ejemplo-actualizar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { CrudCuentaActualizarComponent } from '../crud-cuenta-actualizar/crud-cuenta-actualizar.component';
+
+
+
 @Component({
   selector: 'app-crud-cuenta',
   standalone: true,
@@ -22,6 +25,7 @@ import { CrudCuentaActualizarComponent } from '../crud-cuenta-actualizar/crud-cu
   styleUrl: './crud-cuenta.component.css'
 })
 export class CrudCuentaComponent {
+
 
  //Datos para la Grila
  dataSource:any;

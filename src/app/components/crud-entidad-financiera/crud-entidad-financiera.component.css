@@ -1,0 +1,16 @@
+.mat-column-idEntidadFinanciera {
+    flex: 0 0 8%;
+}
+
+.mat-column-ubigeo {
+    flex: 0 0 25%;
+}
+
+.mat-column-estado {
+    flex: 0 0 8%;
+}
+
+.mat-column-acciones {
+    flex: 0 0 15%;
+}
+
