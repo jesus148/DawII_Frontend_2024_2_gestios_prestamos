@@ -85,7 +85,17 @@ openDialogActualizar(obj: SolicitudPrestamo) {
   console.log(">>> openDialogActualizar [fin]");
 }
 
- 
+updateEstado(obj:SolicitudPrestamo) {
+  console.log(">>> updateEstado [ini]");
+  console.log("obj: ", obj);
+  obj.estado = obj.estado == 1 ? 0 : 1;
+  this.SolicitudPrestamoService.actualizarCrud(obj).subscribe(
+      x => {
+          this.refreshTable();
+      }
+  );
+   console.log(">>> updateEstado [fin]");
+}
 
   delete(obj: SolicitudPrestamo) {
     Swal.fire({

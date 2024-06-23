@@ -7,7 +7,7 @@
     </div>
     <div class="row" style="margin-top: 3%">
         <mat-form-field class="col-md-4">
-            <mat-label>Descripción de Solicitud</mat-label>
+            <mat-label>Filtro de Solicitud</mat-label>
             <input matInput [(ngModel)]="filtro">
         </mat-form-field>
 
@@ -42,6 +42,7 @@
                 <mat-header-cell mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
                 <mat-cell *matCellDef="let aux">{{ aux.fechaFinPrestamo}}</mat-cell>
             </ng-container>
+        
            
             <ng-container matColumnDef="estado">
                 <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
@@ -55,8 +56,8 @@
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idSolicitud}}" name="estado"
                             [checked]="aux.estado==1?true:false"
-                             />
-                             <!--(change)="updateEstado(aux)"-->
+                            (change)="updateEstado(aux)" />
+                             
                         <label class="custom-control-label" for="idEstado_{{ aux.idSolicitud}}"></label>
                     </div>
                     
