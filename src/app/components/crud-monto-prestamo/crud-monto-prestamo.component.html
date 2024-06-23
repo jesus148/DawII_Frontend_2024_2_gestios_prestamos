@@ -1,1 +1,152 @@
-<p>crud-monto-prestamo works!</p>
+
+
+<app-menu></app-menu>
+<div class="container">
+
+
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Crud Monto Prestamo
+            </span>
+        </mat-toolbar>
+    </div>
+
+
+
+    <div class="row" style="margin-top: 3%">
+        <mat-form-field class="col-md-4">
+            <mat-label>Capital Monto</mat-label>
+            <!-- [(ngModel)]="filtro"  : donde se guarda pa listar  -->
+            <input matInput [(ngModel)]="filtro" >
+        </mat-form-field>
+
+        <!-- METODO LISTAR TODO  -->
+        <button (click)="refreshTable()" mat-raised-button type="button" color="primary" style="width: 150px;">Filtrar</button>
+        <!-- metodo pa registra y mostrar el modal registrar  (click)="openDialogRegistrar()" -->
+        <button (click)="openDialogRegistrar()" mat-raised-button type="button" color="primary" style="width: 150px;">Registrar</button>
+    </div>
+
+
+
+
+
+
+    <!-- TABLA PARA LISTAR TODO  -->
+    <div class="row" style="margin-top: 3%">
+
+      <!-- [dataSource]="dataSource" : igual en el front -->
+        <mat-table #table class="mat-cell" [dataSource]="dataSource">
+          <!-- desenvolsando la data  -->
+
+            <ng-container matColumnDef="idMontoPrestamo">
+              <!-- encabezado fijo estatico -->
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                  <!-- mat cell es como un for desenvolsa la data el aux es el actual -->
+                <mat-cell *matCellDef="let aux">{{ aux.idMontoPrestamo }}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="capital">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>capital</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.capital}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="dias">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Días</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.dias.descripcion}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="monto">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Monto</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.monto}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="estado">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.estado == 1 ? "Activo" : "Inactivo" }}</mat-cell>
+            </ng-container>
+
+
+
+
+
+            <!-- ICONOS Y BOTONES PARA ACUTULIZAR ETC -->
+             <!-- cambiar los estilos en el estilo de este componente  -->
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp;</mat-header-cell>
+                <!-- mat-cell *matCellDef="let aux; let i=index;"> : es le for para cada fila  -->
+                <mat-cell *matCellDef="let aux; let i=index;">
+
+
+
+
+                  <!-- BOTON PARA CAMBIAR EL ESTADO  -->
+                  <!-- [checked]="aux.estado==1?true:false"  : ternario para cambiar el estado  -->
+                  <!-- idEstado_{{ aux.idEjemplo }}"  : para q cada fila tenga su propio key pone el id de la tabla ejemplo el id debe ser igual al for-->
+                  <!-- [checked]="aux.estado==1?true:false" : pa mostrar el icono marcado o sin marcar  -->
+                  <!-- (change)="updateEstado(aux)" /> : envia el objeto solo 1  -->
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idMontoPrestamo }}" name="estado"
+                        [checked]="aux.estado==1?true:false"
+                        (change)="updateEstado(aux)" />
+                    <label class="custom-control-label" for="idEstado_{{ aux.idMontoPrestamo }}"></label>
+                </div>
+
+                <!-- en caso salga error aca <mat-icon :_ importar en app.material.nodule   -->
+
+
+                <!-- BOTON PARA ACTUALIZAR  -->
+                <!-- (click)="openDialogActualizar(aux)" : le envia 1 objeto de la tabla  -->
+                <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)">
+                    <mat-icon aria-label="Edit">edit</mat-icon>
+                </button>
+
+                <!-- BOTON ELIMINAR  -->
+                <!-- (click)="delete(aux)"  : envia todo el objeto en el controller  -->
+                <button mat-icon-button color="accent" (click)="delete(aux)" >
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+
+                </mat-cell>
+            </ng-container>
+
+
+
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+       </mat-table>
+       <mat-paginator [pageSizeOptions]="[6,8,10]" showFirstLastButtons></mat-paginator>
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
