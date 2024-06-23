@@ -15,7 +15,7 @@
 
     <div class="row" style="margin-top: 3%">
         <mat-form-field class="col-md-4">
-            <mat-label>Descripción de ejemplo</mat-label>
+            <mat-label>Capital Monto</mat-label>
             <!-- [(ngModel)]="filtro"  : donde se guarda pa listar  -->
             <input matInput [(ngModel)]="filtro" >
         </mat-form-field>
@@ -46,7 +46,7 @@
             </ng-container>
 
 
-            <ng-container matColumnDef="descripcion">
+            <ng-container matColumnDef="capital">
                 <mat-header-cell mat-header-cell *matHeaderCellDef>capital</mat-header-cell>
                 <mat-cell *matCellDef="let aux">{{ aux.capital}}</mat-cell>
             </ng-container>
@@ -89,10 +89,10 @@
                   <!-- [checked]="aux.estado==1?true:false" : pa mostrar el icono marcado o sin marcar  -->
                   <!-- (change)="updateEstado(aux)" /> : envia el objeto solo 1  -->
                   <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idEjemplo }}" name="estado"
+                    <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idMontoPrestamo }}" name="estado"
                         [checked]="aux.estado==1?true:false"
                         (change)="updateEstado(aux)" />
-                    <label class="custom-control-label" for="idEstado_{{ aux.idEjemplo}}"></label>
+                    <label class="custom-control-label" for="idEstado_{{ aux.idMontoPrestamo }}"></label>
                 </div>
 
                 <!-- en caso salga error aca <mat-icon :_ importar en app.material.nodule   -->

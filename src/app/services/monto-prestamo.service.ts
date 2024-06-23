@@ -24,6 +24,15 @@ export class MontoPrestamoService {
 
 
 
+    // metodo validar descripcion al registrar
+    validaMontoRegistra(capital: string): Observable<any>{
+      console.log('>>> Service >> validaDescripcionRegistra [inicio]' + capital);
+      return this.http.get<any>(baseUrlCrudMonto+'/validaMontoPorCapital?capital='+capital);
+    }
+
+
+
+
 
 
   //PC2: CRUD de Ejemplo

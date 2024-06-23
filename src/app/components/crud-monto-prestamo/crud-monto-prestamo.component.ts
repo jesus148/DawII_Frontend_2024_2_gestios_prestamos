@@ -1,17 +1,21 @@
-import { Component , ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ViewChild } from '@angular/core';
 import { AppMaterialModule } from '../../app.material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../menu/menu.component';
+import { MatPaginator } from '@angular/material/paginator';
 import { Usuario } from '../../models/usuario.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MontoPrestamoService } from '../../services/monto-prestamo.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenService } from '../../security/token.service';
 import { MontoPrestamo } from '../../models/monto-prestamo.model';
+
 // importancion para los mensajes de confirmacion o eliminacion
 import Swal from 'sweetalert2';
+import { CrudMontoPrestamoAgregarComponent } from '../crud-monto-prestamo-agregar/crud-monto-prestamo-agregar.component';
+import { CrudCoordenadaActualizarComponent } from '../crud-coordenada-actualizar/crud-coordenada-actualizar.component';
+import { CrudMontoPrestamoActualizarComponent } from '../crud-monto-prestamo-actualizar/crud-monto-prestamo-actualizar.component';
 
 
 @Component({
@@ -43,7 +47,7 @@ export class CrudMontoPrestamoComponent {
     //Cabecera de la tabla
   // en el front en el matColumnDef debe poner igual , son basicamente los header de las columnas
   // recomendable poner igual a los campos de la clase guia , y el front debe poner todo esto o usar todo esto si no te sale error
-    displayedColumns = ["idMontoPrestamo","capital","dias","monto","estado"];
+    displayedColumns = ["idMontoPrestamo","capital","dias","monto","estado", "acciones"] ;
 
     //filtro de la consulta pa listar
     filtro: string = "";
@@ -73,6 +77,22 @@ export class CrudMontoPrestamoComponent {
       openDialogRegistrar() {
         console.log(">>> openDialogRegistrar [ini]");
 
+         // CrudEjemploAgregarComponent : llama al componente CrudEjemploAgregarComponent recordar importar arriba
+      // importar el primero
+      const dialogRef = this.dialogService.open(CrudMontoPrestamoAgregarComponent);
+      // en el componente CrudEjemploAgregarComponent fijate el valor q se obtiene al cerrar o registrar en el   [mat-dialog-close] q valor obtiene
+      dialogRef.afterClosed().subscribe(result => {
+            console.log('Dialog closed with result:', result);
+            // [mat-dialog-close]  es diferente a 0 y envia el 1 osea esta registrando
+            // refrescara la tabla para ver el registro osea lista todo
+            if (result != null && result === 1) {
+
+
+
+              //  refresacar tabla
+              this.refreshTable();
+            }
+      });
 
         console.log(">>> openDialogRegistrar [fin]");
       }
@@ -89,13 +109,27 @@ export class CrudMontoPrestamoComponent {
 
 
 
+
+
           // METODO PA ACTUALIZAR y mostral el modal actulizar
           // los modales son componentes
-          openDialogActualizar(obj: MontoPrestamo) {
+      openDialogActualizar(obj: MontoPrestamo) {
             console.log(">>> openDialogActualizar [ini]");
             console.log("obj: ", obj);
 
+               // llama al modal o al otro componnete pa q se muestre y le envia el objeto solo 1
+            // osea pa actualizar le envia todo el objeto
+            // en el CrudEjemploActualizarComponent lo recibe en el constructor  @Inject(MAT_DIALOG_DATA) public data: Ejemplo
 
+            const dialogRef = this.dialogService.open(CrudMontoPrestamoActualizarComponent, {data: obj} );
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('Dialog closed with result:', result);
+                            // [mat-dialog-close]  es diferente a 0 y envia el 1 osea esta registrando
+            // refrescara la tabla para ver el registro osea lista todo
+                if (result != null && (result === 1 || result === 2)) {
+                  this.refreshTable();
+                }
+            });
             console.log(">>> openDialogActualizar [fin]");
           }
 
