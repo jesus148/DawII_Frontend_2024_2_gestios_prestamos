@@ -29,8 +29,9 @@ import { SolicitudPrestamoService } from '../../services/solicitud-prestamo.serv
 export class CrudSolicitudPrestamoAgregarComponent {
   
   // GLOBALES PARA COMBO Y REGISTRAR
+
 // combo Dias prestamo
-lstDias: DataCatalogo[] = [];
+  lstDias: DataCatalogo[] = [];
 // combo capital
   capital: MontoPrestamo[] = [];
   // combo monto
@@ -62,11 +63,11 @@ lstDias: DataCatalogo[] = [];
           idUsuario: -1
       },
 
-   };
+  };
 
   // VALIDACIONES
-/*
-   formRegistrar = this.formBuilder.group({
+
+  formRegistrar = this.formBuilder.group({
     validaDescripcion: ['', [Validators.required]],
     validaDescripcion1: ['', [Validators.required]],
     validaDescripcion2: ['', [Validators.required]],
@@ -75,7 +76,124 @@ lstDias: DataCatalogo[] = [];
     validaUsuario: ['', [Validators.min(1)]],
 
 });
-*/
-
-
+  // CONSTRUCTOR
+  constructor(private solicitudPrestamoService: SolicitudPrestamoService,
+    private utilService: UtilService,
+    private tokenService: TokenService,
+    private formBuilder: FormBuilder) {
+console.log(">>> constructor  >>> ");
 }
+
+// INICIA CON EL COMPONENTE
+ngOnInit() {
+      console.log(">>> OnInit [inicio]");
+
+
+      // DIAS
+this.utilService.listaDiasPrestamo().subscribe(
+      x => this.lstDias = x
+);
+// PRESTATARIOS INFERIRORES DEL PRESTAMISTA
+this.utilService.listaPrestamistariosDeUnPrestamista(this.tokenService.getUserId()).subscribe(
+  x => this.lstPrestatarios = x
+);
+      // usuario actual
+this.objUsuario.idUsuario = this.tokenService.getUserId();
+// console.log(">>> OnInit >>> 1 >> " + this.lstEstadoSolicitud.length);
+console.log(">>> OnInit >>> 1 >> " + this.lstDias.length);
+console.log(">>> OnInit >>> 2 >> " + this.lstPrestatarios.length);
+console.log(">>> OnInit [fin]");
+}
+
+// METODO REGISTRAR
+registra() {
+  console.log(">>> registra [inicio]");
+  // SETEANDO LA DATA AGREGANDO USUAIROS
+  this.objPrestamo.usuarioActualiza = this.objUsuario;
+  this.objPrestamo.usuarioRegistro = this.objUsuario;
+  console.log(">>> registra [inicio] " + this.objPrestamo);
+  console.log(this.objPrestamo);
+
+  this.solicitudPrestamoService.registrar(this.objPrestamo).subscribe(
+    x => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Resultado del Registro',
+        text: x.mensaje,
+      });
+      this.formRegistrar.reset();
+      this.formRegistrar.markAsPristine();
+    }
+  );
+}
+
+salir(){
+  
+}
+// LISTA CAPITALES DEL MONTOPRESTAMO SEGUN DIAS(IDATACATALOGO)
+listaCapitalesPorDias() {
+  console.log("listaCapitalesPorDias>>> ", this.objPrestamo.dias);
+  if (this.objPrestamo.dias?.idDataCatalogo !== undefined && this.objPrestamo.dias.idDataCatalogo !== -1) {
+    this.utilService.listaCapitalesPorDias(this.objPrestamo.dias.idDataCatalogo).subscribe(
+      (data: MontoPrestamo[]) => {
+        this.capital = data;
+        console.log(data);
+      },
+      error => {
+        console.error('Error al obtener los capitales por días', error);
+      }
+    );
+  } else {
+    console.error('Días no seleccionado');
+  }
+}
+
+// obteniendo montos segundo el capital
+obtenerMontosPagar() {
+  console.log("obtenerMontosPagar>>> ", this.objPrestamo.capital);
+  if (this.objPrestamo.capital && this.objPrestamo.capital > 0) {
+      // item => item.capital  : data todo el monto prestamo hace un reccorido buscando con el find en el col capital
+      // this.objPrestamo.capital : capital valor solo guardado desde el front
+
+      const montoSeleccionado = this.capital.find(item => item.capital === this.objPrestamo.capital);
+      if (montoSeleccionado) {
+          // Asigna el monto al campo montoPagar de solicitudPrestamo
+          this.objPrestamo.montoPagar = montoSeleccionado.monto;
+      } else {
+          console.error('No se encontró el monto correspondiente al capital seleccionado');
+      }
+  } else {
+      console.error('Capital no válido');
+  }
+}
+
+// OBTENIEDNO LAFECHA FIN
+calcularFechaFin() {
+if (this.objPrestamo.fechaInicioPrestamo && this.objPrestamo.dias?.idDataCatalogo) {
+  // conertimos a date pq la fecha del front viene en string
+  const fechaInicio = new Date(this.objPrestamo.fechaInicioPrestamo);
+
+  // Obtener el número de días como entero , lo relaciones ver la tabla
+  const dias = this.lstDias.find(item => item.idDataCatalogo === this.objPrestamo.dias!.idDataCatalogo)?.descripcion;
+  if (dias) {
+    // Convertir la descripción a número, pq es string
+    const diasInt = parseInt(dias);
+
+    // Crear una nueva fecha para la fecha final  y lo suma mas los dias
+    const fechaFin = new Date(fechaInicio);
+    fechaFin.setDate(fechaInicio.getDate() + diasInt);
+
+    // Formatear la fecha final como YYYY-MM-DD sin convertirla a UTC , con el formato de la bd
+    const year = fechaFin.getFullYear();
+    const month = ('0' + (fechaFin.getMonth() + 1)).slice(-2);  // Meses van de 0 a 11, se agrega 1 y se formatea con dos dígitos
+    const day = ('0' + fechaFin.getDate()).slice(-2);  // Días de 1 a 31, se formatea con dos dígitos
+
+    // Asignar la fecha final formateada al modelo
+    this.objPrestamo.fechaFinPrestamo = `${year}-${month}-${day}`;
+  } else {
+    console.error('Número de días no válido');
+  }
+} else {
+  console.error('Fecha de inicio o número de días no seleccionados');
+}
+}}
