@@ -1,0 +1,92 @@
+<div class="container">
+
+    <div class="row">
+        <mat-toolbar color="primary" >    
+        <span>Registrar Cuenta</span>    
+        </mat-toolbar>  
+    </div>
+    
+    <form  class="form-container" [formGroup]="formRegistrar" (ngSubmit)="registrar()">
+        <br>
+        <br>
+        <mat-form-field class="col-md-12">
+          <mat-label>Número CCI</mat-label>
+          <input  matInput [(ngModel)]="cuenta.numero" formControlName="validaNumero" placeholder="Ingrese su número CCI">
+          <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaNumero.touched">
+            <span *ngIf="formRegistrar.controls.validaNumero.hasError('required')">
+                Ingrese el Numero de CCI
+            </span>
+    
+            <span *ngIf="formRegistrar.controls.validaNumero.hasError('pattern')">
+                El numero debe tener 20 digitos
+            </span>
+    
+            <span *ngIf="formRegistrar.controls.validaNumero.hasError('existenNumero')">
+                El número de cuenta ya está registrado
+            </span>
+    
+        </mat-hint>
+    
+        </mat-form-field>
+      
+        <mat-form-field class="col-md-4">
+            <mat-label>Tipo de Entidad</mat-label>
+            <mat-select [(ngModel)]="selectedTipoEntidad" (selectionChange)="listaEntidades()" formControlName="validaTipoEntidad">
+                <mat-option value="-1">Seleccione ....</mat-option>
+                <mat-option *ngFor="let x of lstTipoEntidad" [value]="x.idDataCatalogo">{{x.descripcion}}</mat-option>
+            </mat-select>
+            <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaTipoEntidad.touched">
+                <span *ngIf="formRegistrar.controls.validaTipoEntidad.hasError('min')">
+                    Seleccione un Tipo de Entidad
+                </span>
+            </mat-hint>
+        </mat-form-field>
+        
+        <mat-form-field class="col-md-4">
+            <mat-label>Entidad Financiera</mat-label>
+            <mat-select  [(ngModel)]="cuenta.entidadFinanciera!.idEntidadFinanciera"  formControlName="validaEntidadFinanciera">
+                <mat-option value="-1">Seleccione...</mat-option>
+                <mat-option *ngFor="let x of lstEntidadFinanciera" [value]="x.idEntidadFinanciera">{{x.nombre}}</mat-option>
+            </mat-select>
+            <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaEntidadFinanciera.touched">
+                <span *ngIf="formRegistrar.controls.validaEntidadFinanciera.hasError('min')">
+                    Seleccione una Entidad Financiera
+                </span>
+            </mat-hint>
+        </mat-form-field>
+      
+        <mat-form-field class="col-md-4">
+          <mat-label>Tipo de Moneda</mat-label>
+          <mat-select placeholder="Seleccione" [(ngModel)]="cuenta.tipoMoneda!.idDataCatalogo" formControlName="validaTipoMoneda">
+            <mat-option value="-1">Seleccione...</mat-option>
+            <mat-option  *ngFor="let x of lstTipoMoneda" [value]="x.idDataCatalogo">
+            {{x.descripcion}}
+            </mat-option>
+          </mat-select>
+          <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaTipoMoneda.touched">
+            <span *ngIf="formRegistrar.controls.validaTipoMoneda.hasError('min')">
+                Seleccione un Tipo de Moneda
+            </span>
+          </mat-hint>
+        </mat-form-field>
+        
+        <div class="row" style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;">
+            <div mat-dialog-actions>
+            <button mat-raised-button 
+                           type="submit" 
+                           color="primary" 
+                           [disabled]="formRegistrar.invalid"
+                           [mat-dialog-close]="1"
+                           (click)="registrar()">Registra
+            </button>
+           <button mat-button 
+                           type="submit" 
+                           (click)="salir()"
+                           [mat-dialog-close]="2"    
+                           >Salir
+           </button>
+           </div>
+       </div>
+    
+      </form>
+    </div>

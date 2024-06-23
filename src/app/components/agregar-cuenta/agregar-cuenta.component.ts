@@ -90,7 +90,8 @@ registrar(){
         console.log(">>> registra [inicio] " + this.cuenta);
         console.log(this.cuenta);
         console.log(this.cuenta.tipoMoneda!.idDataCatalogo)
-        
+        console.log(">>> registra [inicio] " , this.cuenta);
+
         this.cuentaService.registrar(this.cuenta).subscribe(
           x=>{
                 Swal.fire({ icon: 'info',title: 'Resultado del Registro',text: x.mensaje,});
@@ -112,9 +113,7 @@ registrar(){
                 }
 
 
-                this.formRegistrar.reset();
-                this.formRegistrar.markAsPristine
-            },
+            }
         );
         
 }

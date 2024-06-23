@@ -1,31 +1,31 @@
-
-.container {
-    padding: 20px;
+.mat-column-idEjemplo {
+    flex: 0 0 8%;
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
+.mat-column-descripcion {
+    flex: 0 0 10%;
 }
 
-.mat-form-field {
-    width: 40%;
+.mat-column-dias {
+    flex: 0 0 8%;
 }
 
-.mat-cell {
-    text-align: center;
+.mat-column-longitud {
+    flex: 0 0 8%;
 }
 
-.mat-header-cell,
-.mat-cell {
-    flex: 1;
+.mat-column-pais {
+    flex: 0 0 10%;
 }
 
-.custom-actions {
-    display: flex;
-    align-items: center;
+.mat-column-ubigeo {
+    flex: 0 0 25%;
 }
 
-.custom-control {
-    margin-right: 10px;
+.mat-column-estado {
+    flex: 0 0 8%;
+}
+
+.mat-column-acciones {
+    flex: 0 0 15%;
 }

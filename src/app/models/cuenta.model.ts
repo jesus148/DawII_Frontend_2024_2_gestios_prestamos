@@ -11,6 +11,4 @@ tipoMoneda?:DataCatalogo;
 estado?:number;
 usuarioRegistro?:Usuario;
 usuarioActualiza?:Usuario;
-
-
 }

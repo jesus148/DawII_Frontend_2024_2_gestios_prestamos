@@ -1,16 +1,17 @@
-
 <div class="container">
 
     <div class="row">
         <mat-toolbar color="primary" >    
-        <span>Registrar Cuenta</span>    
+        <span>Actualizar Cuenta</span>    
         </mat-toolbar>  
     </div>
     
-    <form class="form-container" [formGroup]="formRegistrar" (ngSubmit)="actualiza()">
-        <mat-form-field appearance="fill" class="form-field">
+    <form  class="form-container" [formGroup]="formRegistrar" >
+        <br>
+        <br>
+        <mat-form-field class="col-md-12">
           <mat-label>Número CCI</mat-label>
-          <input id="validaNumero" matInput [(ngModel)]="cuenta.numero" formControlName="validaNumero" placeholder="Ingrese su número CCI">
+          <input  matInput [(ngModel)]="cuenta.numero" formControlName="validaNumero" placeholder="Ingrese su número CCI">
           <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaNumero.touched">
             <span *ngIf="formRegistrar.controls.validaNumero.hasError('required')">
                 Ingrese el Numero de CCI
@@ -20,15 +21,15 @@
                 El numero debe tener 20 digitos
             </span>
     
-            <span *ngIf="formRegistrar.controls.validaNumero.hasError('existenumero')">
-                El numero de cuenta ya esta registrado
+         <span *ngIf="formRegistrar.controls.validaNumero.hasError('existenNumero')">
+                El número de cuenta ya está registrado
             </span>
     
         </mat-hint>
     
         </mat-form-field>
       
-        <mat-form-field appearance="fill" class="form-field">
+        <mat-form-field class="col-md-4">
             <mat-label>Tipo de Entidad</mat-label>
             <mat-select [(ngModel)]="selectedTipoEntidad" (selectionChange)="listaEntidades()" formControlName="validaTipoEntidad">
                 <mat-option value="-1">Seleccione ....</mat-option>
@@ -41,20 +42,20 @@
             </mat-hint>
         </mat-form-field>
         
-        <mat-form-field appearance="fill" class="form-field">
+        <mat-form-field class="col-md-4">
             <mat-label>Entidad Financiera</mat-label>
             <mat-select  [(ngModel)]="cuenta.entidadFinanciera!.idEntidadFinanciera"  formControlName="validaEntidadFinanciera">
                 <mat-option value="-1">Seleccione...</mat-option>
                 <mat-option *ngFor="let x of lstEntidadFinanciera" [value]="x.idEntidadFinanciera">{{x.nombre}}</mat-option>
             </mat-select>
-            <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaEntidadFinanciera">
+            <mat-hint style="color: red;" *ngIf="formRegistrar.controls.validaEntidadFinanciera.touched">
                 <span *ngIf="formRegistrar.controls.validaEntidadFinanciera.hasError('min')">
                     Seleccione una Entidad Financiera
                 </span>
             </mat-hint>
         </mat-form-field>
       
-        <mat-form-field appearance="fill" class="form-field">
+        <mat-form-field class="col-md-4">
           <mat-label>Tipo de Moneda</mat-label>
           <mat-select placeholder="Seleccione" [(ngModel)]="cuenta.tipoMoneda!.idDataCatalogo" formControlName="validaTipoMoneda">
             <mat-option value="-1">Seleccione...</mat-option>
@@ -69,8 +70,14 @@
           </mat-hint>
         </mat-form-field>
         
-        <div  class="row"  style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;" >
-            <button mat-raised-button type="submit" color="primary"[disabled]="formRegistrar.invalid"   ></button>
+        <div class="row" style="margin-top: 3%; margin-left: auto; margin-right: auto; max-width: fit-content;">
+            <div mat-dialog-actions>
+                <button mat-raised-button type="submit" color="primary" [disabled]="formRegistrar.invalid"
+                    [mat-dialog-close]="1" (click)="actualiza()">Actualiza
+                </button>
+                <button mat-button type="submit" (click)="salir()" [mat-dialog-close]="2">Salir
+                </button>
+            </div>
         </div>
     
       </form>
