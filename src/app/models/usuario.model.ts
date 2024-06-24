@@ -13,4 +13,5 @@ export class Usuario {
     usuarioSuperior?:Usuario;
     usuarioRegistro?: Usuario;
     usuarioActualiza?:Usuario;
+    estado?:number;
 }

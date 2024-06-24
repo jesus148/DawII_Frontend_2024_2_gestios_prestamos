@@ -1,1 +1,128 @@
-<p>crud-prestatario-agregar works!</p>
+<div class="container">
+    <form id="idForm" [formGroup]="formsRegistra">
+        <div class="row">
+            <mat-toolbar color="primary">
+                <span>Registra Prestatario</span>
+            </mat-toolbar>
+        </div>
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Nombres</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.nombres" formControlName="validaNombres">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaNombres.touched">
+                    <span *ngIf="formsRegistra.controls.validaNombres.hasError('required')">
+                        El Nombre es requerido.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaNombres.hasError('pattern')">
+                        El Nombre tiene de 3 a 20 Caracteres.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="row" style="margin-top: 3%">
+
+            <mat-form-field class="col-md-12">
+                <mat-label>Apellidos</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.apellidos" formControlName="validaApellidos">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaApellidos.touched">
+                    <span *ngIf="formsRegistra.controls.validaApellidos.hasError('required')">
+                        Los Apellidos son requeridos.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaApellidos.hasError('pattern')">
+                        Los Apellidos tienen de 3 a 20 Caracteres.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>DNI</mat-label>
+                <input maxlength="8" pattern="^\d{8}$" matInput [(ngModel)]="objPrestatario.dni"
+                    formControlName="validaDNI">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaDNI.touched">
+                    <span *ngIf="formsRegistra.controls.validaDNI.hasError('required')">
+                        El Dni es requerido.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaDNI.hasError('pattern')">
+                        El Dni tiene 8 dígitos.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Login</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.login" formControlName="validaLogin">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaLogin.touched">
+                    <span *ngIf="formsRegistra.controls.validaLogin.hasError('required')">
+                        El Login es requerido.
+                    </span>
+
+                    <span
+                        *ngIf="formsRegistra.get('validaNombres')?.hasError('email') && formsRegistra.get('validaNombres')?.touched">
+                        Introduce un Login válido.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Correo</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.correo" formControlName="validaCorreo">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaCorreo.touched">
+                    <span *ngIf="formsRegistra.controls.validaCorreo.hasError('required')">
+                        El Correo Electrónico es requerido.
+                    </span>
+
+                    <span
+                        *ngIf="formsRegistra.get('validaCorreo')?.hasError('email') && formsRegistra.get('validaCorreo')?.touched">
+                        Introduce un Correo Electrónico válido.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+
+            <mat-form-field class="col-md-12">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.fechaNacimiento" [matDatepicker]="picker"
+                       formControlName="validaFechaNacimiento">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaFechaNacimiento.touched">
+                    <span *ngIf="formsRegistra.controls.validaFechaNacimiento.hasError('required')">
+                        La Fecha de Nacimiento es requerida.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaFechaNacimiento.hasError('minAge')">
+                        Debes ser mayor de 18 años.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Dirección</mat-label>
+                <input matInput [(ngModel)]="objPrestatario.direccion" formControlName="validaDirec">
+                <mat-hint style="color: red" *ngIf="formsRegistra.controls.validaDirec.touched">
+                    <span *ngIf="formsRegistra.controls.validaDirec.hasError('required')">
+                        La Dirección es requerida.
+                    </span>
+                    <span *ngIf="formsRegistra.controls.validaDirec.hasError('pattern')">
+                        La Dirección tiene de 3 a 50 Caracteres.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="row">
+            <button mat-raised-button type="submit" [disabled]="formsRegistra.invalid" (click)="registra()"
+                color="primary">Registrar Prestatario</button>
+        </div>
+    </form>
+</div>
