@@ -79,6 +79,7 @@ console.log(">>> constructor  >>> ");
     this.utilService.listaTipoEntidadBancaria().subscribe(
       x => this.lstTipoEntidad = x
     );
+    
     this.utilService.listarDepartamento().subscribe(
       x => this.departamentos = x
     );
