@@ -44,10 +44,10 @@ ng             </ng-container>
                 <mat-cell *matCellDef="let aux; let i=index;">
 
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idCuenta}}" name="estado"
+                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idGrupo}}" name="estado"
                             [checked]="aux.estado==1?true:false"
                             (change)="updateEstado(aux)" />
-                        <label class="custom-control-label" for="idEstado_{{ aux.idCuenta}}"></label>
+                        <label class="custom-control-label" for="idEstado_{{ aux.idGrupo}}"></label>
                     </div>
                     
                     <button mat-icon-button color="accent" (click)="openDialogActualizar(aux)" >
