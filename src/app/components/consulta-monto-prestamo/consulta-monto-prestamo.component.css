@@ -1,0 +1,42 @@
+
+
+
+/* ESTILOS DE ESTE COMPONENTE  */
+
+
+/* matColumnDef="idEjemplo" es igual al .mat-column-idEjemplo */
+/* ver en la vista el html , y los demas son igual */
+
+
+
+/* recordar css :
+
+primer 0 : no crece
+segundo 0 : no se encoje mantiene un valor no encoje ni con los demas igual , osea mantiene un tamaño
+3 parametro : tamaño base inicial osea su tamaño como inciara no importa si le das otro esto manda
+flex: 0 0 5%; */
+
+
+/* estos estilos son para la tabla */
+/* matColumnDef="idEjemplo" */
+.mat-column-idMontoPrestamo {
+  flex: 0 0 20%;
+}
+
+.mat-column-capital {
+  flex: 0 0 20%;
+}
+
+.mat-column-dias {
+  flex: 0 0 20%;
+}
+
+.mat-column-monto {
+  flex: 0 0 20%;
+}
+
+.mat-column-estado {
+  flex: 0 0 20%;
+}
+
+

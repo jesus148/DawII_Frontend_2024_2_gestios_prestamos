@@ -6,6 +6,7 @@ import { AppSettings } from '../app.settings';
 
 const baseUrlPrueba = AppSettings.API_ENDPOINT+ '/montoPrestamo';
 const baseUrlCrudMonto = AppSettings.API_ENDPOINT + '/crudMontoPrestamo';
+const baseUrlConsulta = AppSettings.API_ENDPOINT + '/consultaMonto';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,29 @@ validaCapitalActualiza(capital: string, idMontoPrestamo:number): Observable<any>
   }
 
   // actualizar = al registrar
+
+
+
+
+
+
+
+
+
+  // PC3 CONSULTA COMPLEJA
+  consultaMonto(capital: string, dias: string , monto :number , estado: number): Observable<any>{
+    // consola print
+    console.log('>>> Service >> consultaEjemplo [inicio]' + capital);
+
+    // "&idPais=" : parametro igual en el back en el @RequestParam
+    return this.http.get<any>(baseUrlConsulta+'/consultaComplejoEjemplo?capital='+capital + "&dias="+dias + "&monto="+monto + "&estado="+estado );
+  }
+
+
+
+
+
+
 
 
 
