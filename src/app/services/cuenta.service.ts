@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../app.settings';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Cuenta } from '../models/cuenta.model';
 import { Observable } from 'rxjs';
 import { EntidadFinanciera } from '../models/entidad-financiera.model';
 
 const baseUrlPrueba = AppSettings.API_ENDPOINT+ '/cuenta';
 const baseUrlCrudPrueba = AppSettings.API_ENDPOINT + '/crudCuenta';
-
+const baseUrlConsultaPrueba = AppSettings.API_ENDPOINT + '/consultaCuenta';
 @Injectable({
   providedIn: 'root'
 })
@@ -56,5 +56,15 @@ consultarCrud(filtro:string):Observable<any>{
 obtenerCuentaPorNumero(numero: string): Observable<Cuenta> {
   return this.http.get<Cuenta>(baseUrlCrudPrueba + "/detalleCuenta/" + numero);
 }
+
+//consulta cuenta
+  consultaCuentaCompleja(numero: string,  entidadFinanciera : number, estado: number, tipoMoneda: number): Observable<any>{
+    const params = new HttpParams()
+       .set("numero", numero)
+       .set("entidadFinanciera", entidadFinanciera)
+       .set("estado", estado)
+       .set("tipoMoneda", tipoMoneda);
+   return this.http.get(baseUrlConsultaPrueba+"/consultaCuentaCompleja",{params});
+ }
 
 }
