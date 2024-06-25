@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../app.settings';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EntidadFinanciera } from '../models/entidad-financiera.model';
 import { Observable } from 'rxjs';
 
 const baseUrlPrueba = AppSettings.API_ENDPOINT+ '/entidadFinanciera';
 const baseUrlCrudPrueba = AppSettings.API_ENDPOINT+ '/crudEntidadFinanciera';
+const baseUrlConsultaEntidad = AppSettings.API_ENDPOINT + '/consultaEntidadFinanciera';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,14 @@ export class EntidadFinancieraService {
     return this.http.get(baseUrlCrudPrueba+"/listaEntidadFinancieraPorNombreLike/"+ filtro);
   }
 
+  //Consulta Compleja de Entidad Financiera
+  consultaEntidadFCompleja(nombre:string, gerente:string, tipoEntidad:number, estado: number):Observable<any>{
+    const params = new HttpParams()
+    .set('nombre', nombre)
+    .set('gerente', gerente)
+    .set('tipoEntidad', tipoEntidad)
+    .set('estado', estado);
+
+    return this.http.get(baseUrlConsultaEntidad+"/consultaComplejaEntidad", {params});
+  }
 }
