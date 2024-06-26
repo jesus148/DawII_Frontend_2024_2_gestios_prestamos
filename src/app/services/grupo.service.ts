@@ -7,6 +7,7 @@ import { AppSettings } from '../app.settings';
 
 const baseUrlPrueba = AppSettings.API_ENDPOINT+ '/grupo';
 const baseUrlPruebaCrud = AppSettings.API_ENDPOINT+ '/crudGrupo';
+const baseUrlConsultaPrueba = AppSettings.API_ENDPOINT + '/consultarGrupo';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,6 @@ validaDescripcionActualiza(descripcion: string, id:number): Observable<any>{
   return this.http.get<any>(baseUrlPruebaCrud+'/validaDescripcionActualiza?descripcion='+descripcion + "&idGrupo="+id);
 }
 
-//PC2: CRUD de Ejemplo
 registrarCrud(data:Grupo):Observable<any>{
   return this.http.post(baseUrlPruebaCrud+"/registraGrupo", data);
 }
@@ -43,7 +43,9 @@ consultarCrud(filtro:string):Observable<any>{
   return this.http.get(baseUrlPruebaCrud+"/listaGrupoPorDescripcionLike/"+ filtro);
 }
 
-
+  consultarGrupo(descripcion: string, idUbigeo: number, estado: number, idLiderUsu: number): Observable<any>{
+    return this.http.get<any>(baseUrlConsultaPrueba+'/consultaComplejoGrupo?descripcion='+descripcion + "&idUbigeo="+idUbigeo + "&estado="+estado + "&idLiderUsu="+idLiderUsu );
+  }
 
 
 
