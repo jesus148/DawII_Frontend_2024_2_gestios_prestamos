@@ -1,0 +1,27 @@
+.mat-column-idSolicitud {
+    flex: 0 0 8%;
+}
+
+.mat-column-capital {
+    flex: 0 0 10%;
+}
+
+.mat-column-dias {
+    flex: 0 0 8%;
+}
+
+.mat-column-montoPagar {
+    flex: 0 0 8%;
+}
+
+.mat-column-fechaInicioPrestamo {
+    flex: 0 0 10%;
+}
+
+.mat-column-fechaFinPrestamo {
+    flex: 0 0 10%;
+}
+
+.mat-column-estado {
+    flex: 0 0 8%;
+}
