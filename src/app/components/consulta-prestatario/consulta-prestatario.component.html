@@ -1,1 +1,82 @@
-<p>consulta-prestatario works!</p>
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>CONSULTA COMPLEJA PRESTATARIO</span>
+        </mat-toolbar>
+    </div>
+    <div class="row" style="margin-top: 4%">
+        <mat-form-field class="col-md-5">
+            <mat-label>NOMBRES</mat-label>
+            <input matInput [(ngModel)]="nombres">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-5">
+            <mat-label>APELLIDOS</mat-label>
+            <input matInput [(ngModel)]="apellidos">
+        </mat-form-field>
+
+        <div class="col-md-2" style="display: flex; align-items: center; justify-content: center">
+            <div class="custom-control custom-switch">
+                <input [(ngModel)]="estado" type="checkbox" class="custom-control-input" id="idEstado" name="estado" />
+                <label class="custom-control-label" for="idEstado">ESTADO</label>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 4%">
+        
+        <mat-form-field class="col-md-5">
+            <mat-label>DNI</mat-label>
+            <input matInput [(ngModel)]="dni">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-5">
+            <mat-label>LOGIN NOMBRE USUARIO</mat-label>
+            <input matInput [(ngModel)]="login">
+        </mat-form-field>
+
+    </div>
+    <div class="row" style="margin-top: 4%; display: flex; align-items: center; justify-content: center">
+        <button mat-raised-button type="button" color="primary" style="width: 100px;"
+            (click)="consultaPrestatario()">Filtrar</button>
+    </div>
+
+    <div class="row" style="margin-top: 4%">
+        <mat-table #table class="mat-cell" [dataSource]="dataSource">
+
+            <ng-container matColumnDef="idUsuario">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idUsuario }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="nombres">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>NOMBRES</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.nombres}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="apellidos">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>APELLIDOS</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.apellidos}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dni">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>DNI</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.dni}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="login">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>LOGIN</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.login}}</mat-cell>
+            </ng-container>
+
+          
+            <ng-container matColumnDef="estado">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>ESTADO</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.estado == 1 ? "Activo" : "Inactivo" }}</mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
